@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<robot name="hexapod">
+    <!-- Build Body -->
+    <link name="base_link"/>
+    <joint name="base_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="thorax"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+    <link name="thorax">
+        <visual>
+            <geometry>
+                <mesh filename="package://hexapod_description_pkg/meshes/thorax.STL"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <material name="yellow">
+                <color rgba="1 1 0 1"/>
+            </material>
+        </visual>
+    </link>
+    <!--Leg starts here-->
+    <joint name="leg_center_joint_r1" type="fixed">
+        <origin rpy="0 0 0" xyz="0.087598 -0.050575 0"/>
+        <parent link="thorax"/>
+        <child link="leg_center_r1"/>
+    </joint>
+    <!--Connection Point-->
+    <link name="leg_center_r1"/>
+    <joint name="coxa_joint_r1" type="revolute">
+        <origin rpy="0 0 -1.0471975512" xyz="0 0 0"/>
+        <parent link="leg_center_r1"/>
+        <child link="coxa_r1"/>
+        <axis xyz="0 0 -1"/>
+        <limit effort="10000" lower="-1.5" upper="1.5" velocity="100"/>
+    </joint>
+    <!--Firts motor support-->
+    <link name="coxa_r1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://hexapod_description_pkg/meshes/coxa_r.STL"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.7 0.7 0 1"/>
+            </material>
+        </visual>
+    </link>
+    <!--Firts scheletal leg part-->
+    <joint name="femur_joint_r1" type="revolute">
+        <origin rpy="-1.57079632679 0 0" xyz="0.0294 0 0"/>
+        <parent link="coxa_r1"/>
+        <child link="femur_r1"/>
+        <axis xyz="0 0 -1"/>
+        <limit effort="10000" lower="-1.5" upper="1.5" velocity="100"/>
+    </joint>
+    <link name="femur_r1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://hexapod_description_pkg/meshes/femur_l.STL"/>
+            </geometry>
+            <material name="">
+                <color rgba="0 0.7 0.7 1"/>
+            </material>
+        </visual>
+    </link>
+    <!--Second Scheletal leg part-->
+    <joint name="tibia_joint_r1" type="revolute">
+        <origin rpy="3.14159265359 0 1.57079632679" xyz="0.08 0 0"/>
+        <parent link="femur_r1"/>
+        <child link="tibia_r1"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="10000" lower="-1.5" upper="1.5" velocity="100"/>
+    </joint>
+    <link name="tibia_r1">
+    <visual>
+      <origin rpy="0 0 0.06" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://hexapod_description_pkg/meshes/tibia_r.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.7 0 0.7 1"/>
+      </material>
+    </visual>
+  </link>
+  <!--Foot-->
+   <joint name="tibia_foot_joint_r1" type="fixed">
+    <origin rpy="0 0 0" xyz="0.117 0 0"/>
+    <parent link="tibia_r1"/>
+    <child link="tibia_foot_r1"/>
+  </joint>
+  <link name="tibia_foot_r1"/>
+
+
+
+</robot>
