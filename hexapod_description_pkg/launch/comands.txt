@@ -1,0 +1,3 @@
+roslaunch hexapod_description_pkg hexa_model.launch
+
+roslaunch hexapod_description_pkg test.launch model:="`rospack find hexapod_description_pkg`/urdf/hexapod_gazebo_test.xacro"

@@ -113,11 +113,11 @@
     </xacro:macro>
 
     <!-- Build robot using leg maros and thorax -->
-    <xacro:leg side="r" num="1" x="0.087598" y="-0.050575" angle="-${pi/3}" />
-    <xacro:leg side="r" num="2" x="0"       y="-0.06985"    angle="-${pi/2}" />
-    <xacro:leg side="r" num="3" x="-0.087598"   y="-0.050575"   angle="-${pi*2/3}" />
-    <xacro:leg side="l" num="1" x="0.087598"    y="0.050575"    angle="${pi/3}" />
-    <xacro:leg side="l" num="2" x="0"       y="0.06985" angle="${pi/2}" />
-    <xacro:leg side="l" num="3" x="-0.087598"   y="0.050575"    angle="${pi*2/3}" />
+    <xacro:leg side="r" num="1" x="0.087598"   y="-0.050575" angle="-${pi/3}" />
+    <xacro:leg side="r" num="2" x="0"          y="-0.06985"  angle="-${pi/2}" />
+    <xacro:leg side="r" num="3" x="-0.087598"  y="-0.050575" angle="-${pi*2/3}" />
+    <xacro:leg side="l" num="1" x="0.087598"   y="0.050575"  angle="${pi/3}" />
+    <xacro:leg side="l" num="2" x="0"          y="0.06985"   angle="${pi/2}" />
+    <xacro:leg side="l" num="3" x="-0.087598"  y="0.050575"  angle="${pi*2/3}" />
 
 </robot>
