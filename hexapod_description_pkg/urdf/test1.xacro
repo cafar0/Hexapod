@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="hexapod">
+
+
+<xacro:macro name="default_inertial" params="mass">
+               <inertial>
+                       <mass value="${mass}" />
+                       <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                                iyy="1.0" iyz="0.0"
+                                izz="1.0" />
+               </inertial>
+    </xacro:macro>
+
+    <!-- Build the base of the body -->
+    <link name="base_link" >
+         <!--xacro:default_inertial mass="1"/-->
+     </link>
+    
+    <link name="thorax">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://hexapod_description_pkg/meshes/thorax.STL" />
+            </geometry>
+            <material name="grey">
+                <color rgba="0.5 0.5 0.5 1" />
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://hexapod_description_pkg/meshes/thorax.STL" />
+            </geometry>
+        </collision>
+        <xacro:default_inertial mass="10"/>
+        <turnGravityOff>false</turnGravityOff>
+    </link>
+
+    
+    <!--Connection Point-->
+    <link name="leg_center_r1">
+         <xacro:default_inertial mass="1"/>
+         <turnGravityOff>false</turnGravityOff>
+     </link>
+    
+    <!--Firts motor support-->
+    <link name="coxa_r1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://hexapod_description_pkg/meshes/coxa_r.STL"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.7 0.7 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://hexapod_description_pkg/meshes/coxa_r.STL"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.7 0.7 0 1"/>
+            </material>
+        </collision>
+        <xacro:default_inertial mass="1"/>
+        <turnGravityOff>false</turnGravityOff>
+    </link>
+
+     <gazebo reference="coxa_r1">
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+
+    <joint name="base_joint" type="fixed">
+        <parent link="base_link"/>
+        <child  link="thorax"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+
+    <joint name="leg_center_joint_r1" type="fixed">
+        <origin rpy="0 0 0" xyz="0.087598 -0.050575 0"/>
+        <parent link="thorax"/>
+        <child link="leg_center_r1"/>
+    </joint>
+
+    <joint name="coxa_joint_r1" type="revolute">
+        <origin rpy="0 0 -1.0471975512" xyz="0 0 0"/>
+        <parent link="leg_center_r1"/>
+        <child link="coxa_r1"/>
+        <axis xyz="0 0 -1"/>
+        <limit effort="10000" lower="-1.5" upper="1.5" velocity="100"/>
+    </joint>
+</robot>
