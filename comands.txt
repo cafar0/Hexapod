@@ -1,3 +1,7 @@
 roslaunch hexapod_description_pkg hexa_model.launch
 
 roslaunch hexapod_description_pkg test.launch model:="`rospack find hexapod_description_pkg`/urdf/hexapod_gazebo_test.xacro"
+
+
+// send topic message to control joint position
+rostopic pub -1 /rrbot/joint1_position_controller/command std_msgs/Float64 "data: 1.5"
