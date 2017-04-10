@@ -1,0 +1,18 @@
+# VS Code specific
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ROS specific
+build
+bin
+msg_gen
+srv_gen
+cpp
+
+*.cfgc
+*.pyc
+ROS_NOBUILD
+.swp
