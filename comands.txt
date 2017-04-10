@@ -5,3 +5,9 @@ roslaunch hexapod_description_pkg test.launch model:="`rospack find hexapod_desc
 
 // send topic message to control joint position
 rostopic pub -1 /rrbot/joint1_position_controller/command std_msgs/Float64 "data: 1.5"
+
+//start node 
+rosrun hexapod_kinematics_pkg test_topic_publisher.py &
+
+//start walking fwd
+rostopic pub counter std_msgs/Float64 0
