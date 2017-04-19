@@ -55,10 +55,10 @@ class Movement():
         self.pub_femur_r3.publish(value)
 
     def liftLeftLeg(self) :
-        self.pub_femur_r2.publish(FEMUR_UP)
         self.pub_femur_l1.publish(FEMUR_UP)
+        self.pub_femur_r2.publish(FEMUR_UP)
         self.pub_femur_l3.publish(FEMUR_UP)
-        self.moveRightLeg(-0.2)
+        # self.moveRightLeg(-0.2)
 
     def lowerLeftLeg(self) :
         self.pub_femur_l1.publish(DOWN)
@@ -67,10 +67,10 @@ class Movement():
         # self.moveRightLeg(0.0)
 
     def liftRightLeg(self) :
+        self.pub_femur_r1.publish(FEMUR_UP)
         self.pub_femur_l2.publish(FEMUR_UP)
         self.pub_femur_r3.publish(FEMUR_UP)
-        self.pub_femur_r1.publish(FEMUR_UP)
-        self.moveLeftLeg(-0.2)
+        # self.moveLeftLeg(-0.2)
 
     def lowerRightLeg(self) :
         self.pub_femur_r1.publish(DOWN)

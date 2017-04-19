@@ -26,7 +26,7 @@ pub_coxa_r1 = rospy.Publisher('/hexapod/coxa_r1_joint_position_controller/comman
 pub_coxa_r2 = rospy.Publisher('/hexapod/coxa_r2_joint_position_controller/command',  Float64, queue_size=2)
 pub_coxa_r3 = rospy.Publisher('/hexapod/coxa_r3_joint_position_controller/command',  Float64, queue_size=2)
 
-rate    =   rospy.Rate(1.5)
+rate    =   rospy.Rate(1.7)
 rate_calib = rospy.Rate(1.0)
 count   =   0
 
@@ -39,42 +39,7 @@ def stage_1_movement():
     # prepare for left step 
     # lift left leg
     kinematic.liftLeftLeg()
-    # rate.sleep()
-
-def stage_2_left_movement():
-    # move left leg fwd
-    kinematic.moveLeftLegForward()
     rate.sleep()
-    
-    # lower left leg
-    kinematic.lowerLeftLeg()
-    rate.sleep()
-
-def stage_2_left_complition():
-    # move left coxa bwd
-    #TODO:remove additional sleep after calibrating joint's speed and effort
-    rate.sleep()
-    kinematic.moveLeftLegNeutral()
-    # lift right leg
-    kinematic.liftRightLeg()
-    
-
-def stage_2_right_movement():
-    # move right leg fwd
-    kinematic.moveRightLegForward()
-    rate.sleep()
-    
-    # lower right leg
-    kinematic.lowerRightLeg()
-    rate.sleep()
-
-def stage_2_right_completion():
-    # move right leg bwd
-    rate.sleep()
-    kinematic.moveRightLegNeutral()
-    # lift left leg
-    kinematic.liftLeftLeg()
-    
 
 def initial_position():
     pub_coxa_l1.publish(0.0)
@@ -99,12 +64,37 @@ def callback(msg):
     if msg.data == 0 :
         loop_condition = True
         stage_1_movement()
-        while loop_condition:
-            stage_2_left_movement()
-            stage_2_left_complition()
-            stage_2_right_movement()
-            stage_2_right_completion()
-        initial_position()
+        # TODO: Uncomment and try to compansate balance when lifting legs
+        # e.g. : lift right leg and push left one to 0.1
+        #while loop_condition:
+            
+        kinematic.moveLeftLegForward()
+        rate.sleep()
+    
+        kinematic.lowerLeftLeg()
+        rate.sleep()
+
+        kinematic.liftRightLeg()
+        # rate.sleep()
+        kinematic.moveLeftLegNeutral()
+        # rate.sleep()
+            
+            
+            # kinematic.moveRightLegForward()
+            # rate.sleep()
+            
+            # kinematic.lowerRightLeg()
+            # rate.sleep()
+
+            # kinematic.liftLeftLeg()
+            # # rate.sleep()
+            # kinematic.moveRightLegNeutral()
+            # # rate.sleep()
+
+            
+
+    rate.sleep()
+        # initial_position()
 #    else :      
 
     rate.sleep()

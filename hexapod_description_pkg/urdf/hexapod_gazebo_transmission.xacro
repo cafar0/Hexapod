@@ -147,7 +147,8 @@
             <parent link="leg_center_${side}${num}" />
             <child  link="coxa_${side}${num}" />
             <axis xyz="0 0 -1" />
-            <limit lower="${joint_lower_limit}" upper="${joint_upper_limit}" effort="${joint_effort}" velocity="${joint_velocity}" />
+            <limit lower="${joint_lower_limit}" upper="${joint_upper_limit}" 
+                   effort="${joint_effort}" velocity="${joint_velocity}" />
         </joint>
 
         <joint name="femur_joint_${side}${num}" type="revolute">
@@ -155,7 +156,8 @@
             <parent link="coxa_${side}${num}"  />
             <child  link="femur_${side}${num}" />
             <axis   xyz="0 0 -1" />
-            <limit lower="${joint_lower_limit}" upper="${joint_upper_limit}" effort="${joint_effort}" velocity="${joint_velocity}" />
+            <limit lower="${joint_lower_limit}" upper="${joint_upper_limit}" 
+                   effort="${joint_effort}" velocity="${joint_velocity}" />
         </joint>
 
         <joint name="tibia_joint_${side}${num}" type="revolute">
@@ -163,7 +165,8 @@
             <parent link="femur_${side}${num}" />
             <child  link="tibia_${side}${num}" />
             <axis   xyz="0 0 1" />
-            <limit  lower="${joint_lower_limit}" upper="${joint_upper_limit}" effort="${joint_effort}" velocity="${joint_velocity}" />
+            <limit  lower="${joint_lower_limit}" upper="${joint_upper_limit}" 
+                    effort="${joint_effort}" velocity="${joint_velocity}" />
         </joint>
 
         <joint name="tibia_foot_joint_${side}${num}" type="fixed">
