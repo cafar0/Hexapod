@@ -34,12 +34,7 @@ kinematic = Movement((pub_femur_l1,pub_femur_l2,pub_femur_l3),
                      (pub_femur_r1,pub_femur_r2,pub_femur_r3),
                      (pub_coxa_l1, pub_coxa_l2, pub_coxa_l3),
                      (pub_coxa_r1, pub_coxa_r2, pub_coxa_r3))
-
-def stage_1_movement():
-    # prepare for left step 
-    # lift left leg
-    kinematic.liftLeftLeg()
-    rate.sleep()
+    
 
 def initial_position():
     pub_coxa_l1.publish(0.0)
@@ -63,23 +58,33 @@ def callback(msg):
 
     if msg.data == 0 :
         loop_condition = True
-        stage_1_movement()
         # TODO: Uncomment and try to compansate balance when lifting legs
         # e.g. : lift right leg and push left one to 0.1
         #while loop_condition:
-            
-        kinematic.moveLeftLegForward()
-        rate.sleep()
-    
-        kinematic.lowerLeftLeg()
+        kinematic.liftLeftLeg()
         rate.sleep()
 
-        kinematic.liftRightLeg()
-        # rate.sleep()
-        kinematic.moveLeftLegNeutral()
-        # rate.sleep()
+        while True :
+            kinematic.moveLeftLegForward()
+            rate.sleep()
+        
+            kinematic.lowerLeftLeg()
+            rate.sleep()
+
+            kinematic.liftRightLeg()
+            # rate.sleep()
+            kinematic.moveLeftLegNeutral()
+            # rate.sleep()
+                
+            kinematic.moveRightLegForward()
+            rate.sleep()
+
+            kinematic.lowerRightLeg()
+            rate.sleep()
             
-            
+            kinematic.liftLeftLeg()
+            kinematic.moveRightLegNeutral()
+
             # kinematic.moveRightLegForward()
             # rate.sleep()
             

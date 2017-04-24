@@ -55,9 +55,9 @@ class Movement():
         self.pub_femur_r3.publish(value)
 
     def liftLeftLeg(self) :
-        self.pub_femur_l1.publish(FEMUR_UP)
-        self.pub_femur_r2.publish(FEMUR_UP)
-        self.pub_femur_l3.publish(FEMUR_UP)
+        self.pub_femur_l1.publish(0.8)
+        self.pub_femur_r2.publish(0.8)
+        self.pub_femur_l3.publish(0.8)
         # self.moveRightLeg(-0.2)
 
     def lowerLeftLeg(self) :
@@ -79,9 +79,9 @@ class Movement():
         # self.moveLeftLeg(0.0)
 
     def moveLeftLegForward(self) :
-        self.pub_coxa_l1.publish(COXA_FWD)
-        self.pub_coxa_r2.publish(-COXA_FWD)
-        self.pub_coxa_l3.publish(COXA_FWD)
+        self.pub_coxa_l1.publish(0.3)
+        self.pub_coxa_r2.publish(-0.3)
+        self.pub_coxa_l3.publish(0.3)
 
     def moveLeftLegNeutral(self) :
         self.pub_coxa_l1.publish(NEUTRAL)
@@ -94,6 +94,6 @@ class Movement():
         self.pub_coxa_r3.publish(-COXA_FWD)
 
     def moveRightLegNeutral(self) :
-        self.pub_coxa_r1.publish(NEUTRAL)
-        self.pub_coxa_l2.publish(NEUTRAL)
-        self.pub_coxa_r3.publish(NEUTRAL)
+        self.pub_coxa_r1.publish(-0.06)
+        self.pub_coxa_l2.publish(-0.06)
+        self.pub_coxa_r3.publish(-0.06)
