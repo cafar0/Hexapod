@@ -16,3 +16,6 @@ cpp
 *.pyc
 ROS_NOBUILD
 .swp
+
+# MAC OSX
+.DS_Store
