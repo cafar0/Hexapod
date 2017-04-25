@@ -1,49 +1,14 @@
 #!/usr/bin/env python
-import  rospy
-from  std_msgs.msg import  Float64
-
+from movement import Movement
 
 FEMUR_UP = 1.0
 COXA_FWD = 0.4
 DOWN = 0.1
 NEUTRAL = 0.0
 
-class Movement(): 
-    #Publishers
-    pub_femur_l1 = None
-    pub_femur_l2 = None
-    pub_femur_l3 = None
 
-    pub_femur_r1 = None
-    pub_femur_r2 = None
-    pub_femur_r3 = None
+class Tripod(Movement) :
 
-    pub_coxa_l1 = None
-    pub_coxa_l2 = None
-    pub_coxa_l3 = None
-
-    pub_coxa_r1 = None
-    pub_coxa_r2 = None
-    pub_coxa_r3 = None
-
-    def __init__ (self, femur_left, femur_right, coxa_left, coxa_right) :
-        self.pub_femur_l1 = femur_left[0]
-        self.pub_femur_l2 = femur_left[1]
-        self.pub_femur_l3 = femur_left[2]
-
-        self.pub_femur_r1 = femur_right[0]
-        self.pub_femur_r2 = femur_right[1]
-        self.pub_femur_r3 = femur_right[2]
-
-        self.pub_coxa_l1 = coxa_left[0]
-        self.pub_coxa_l2 = coxa_left[1]
-        self.pub_coxa_l3 = coxa_left[2]
-
-        self.pub_coxa_r1 = coxa_right[0]
-        self.pub_coxa_r2 = coxa_right[1]
-        self.pub_coxa_r3 = coxa_right[2]
-
-    
     def moveLeftLeg(self,value) : 
         self.pub_femur_l1.publish(value)
         self.pub_femur_r2.publish(value)

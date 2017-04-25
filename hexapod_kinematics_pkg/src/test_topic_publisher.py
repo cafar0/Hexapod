@@ -1,12 +1,8 @@
 #!/usr/bin/env python
 import  rospy
 from std_msgs.msg import  Float64
-from movement import Movement
+from movement.tripod import Tripod
 
-stage_1 = 0
-stage_2 = 1
-stage_3 = 2
-stage_4 = 3
 
 rospy.init_node('topic_publisher')
 
@@ -30,10 +26,10 @@ rate    =   rospy.Rate(1.7)
 rate_calib = rospy.Rate(1.0)
 count   =   0
 
-kinematic = Movement((pub_femur_l1,pub_femur_l2,pub_femur_l3),
-                     (pub_femur_r1,pub_femur_r2,pub_femur_r3),
-                     (pub_coxa_l1, pub_coxa_l2, pub_coxa_l3),
-                     (pub_coxa_r1, pub_coxa_r2, pub_coxa_r3))
+kinematic = Tripod((pub_femur_l1,pub_femur_l2,pub_femur_l3),
+                   (pub_femur_r1,pub_femur_r2,pub_femur_r3),
+                   (pub_coxa_l1, pub_coxa_l2, pub_coxa_l3),
+                   (pub_coxa_r1, pub_coxa_r2, pub_coxa_r3))
     
 
 def initial_position():
@@ -58,9 +54,8 @@ def callback(msg):
 
     if msg.data == 0 :
         loop_condition = True
-        # TODO: Uncomment and try to compansate balance when lifting legs
-        # e.g. : lift right leg and push left one to 0.1
-        #while loop_condition:
+        
+        
         kinematic.liftLeftLeg()
         rate.sleep()
 
@@ -85,18 +80,6 @@ def callback(msg):
             kinematic.liftLeftLeg()
             kinematic.moveRightLegNeutral()
 
-            # kinematic.moveRightLegForward()
-            # rate.sleep()
-            
-            # kinematic.lowerRightLeg()
-            # rate.sleep()
-
-            # kinematic.liftLeftLeg()
-            # # rate.sleep()
-            # kinematic.moveRightLegNeutral()
-            # # rate.sleep()
-
-            
 
     rate.sleep()
         # initial_position()
