@@ -3,7 +3,7 @@ import  rospy
 from std_msgs.msg import  Float64
 from movement.tripod import Tripod
 
-rospy.init_node('topic_publisher')
+rospy.init_node('tripod_publisher')
 
 pub_femur_l1 = rospy.Publisher('/hexapod/femur_l1_joint_position_controller/command',  Float64, queue_size=2)
 pub_femur_l2 = rospy.Publisher('/hexapod/femur_l2_joint_position_controller/command',  Float64, queue_size=2)
