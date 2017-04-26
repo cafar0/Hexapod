@@ -61,4 +61,25 @@ class Movement():
         self.pub_coxa_r3 = coxa_right[2]
 
     
+    def initial_position():
+        self.pub_femur_l1.publish(0.0)
+        self.pub_femur_l2.publish(0.0)
+        self.pub_femur_l3.publish(0.0)
+        self.pub_femur_r1.publish(0.0)
+        self.pub_femur_r2.publish(0.0)
+        self.pub_femur_r3.publish(0.0)
+        
+        self.pub_coxa_l1.publish(0.0)
+        self.pub_coxa_l2.publish(0.0)
+        self.pub_coxa_l3.publish(0.0)
+        self.pub_coxa_r1.publish(0.0)
+        self.pub_coxa_r2.publish(0.0)
+        self.pub_coxa_r3.publish(0.0)
+
+        self.pub_femur_l1.publish(0.0)
+        self.pub_femur_l2.publish(0.0)
+        self.pub_femur_l3.publish(0.0)
+        self.pub_femur_r1.publish(0.0)
+        self.pub_femur_r2.publish(0.0)
+        self.pub_femur_r3.publish(0.0)
     

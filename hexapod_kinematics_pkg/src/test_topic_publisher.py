@@ -3,7 +3,6 @@ import  rospy
 from std_msgs.msg import  Float64
 from movement.tripod import Tripod
 
-
 rospy.init_node('topic_publisher')
 
 pub_femur_l1 = rospy.Publisher('/hexapod/femur_l1_joint_position_controller/command',  Float64, queue_size=2)
@@ -31,22 +30,6 @@ kinematic = Tripod((pub_femur_l1,pub_femur_l2,pub_femur_l3),
                    (pub_coxa_l1, pub_coxa_l2, pub_coxa_l3),
                    (pub_coxa_r1, pub_coxa_r2, pub_coxa_r3))
     
-
-def initial_position():
-    pub_coxa_l1.publish(0.0)
-    pub_coxa_l2.publish(0.0)
-    pub_coxa_l3.publish(0.0)
-    pub_coxa_r1.publish(0.0)
-    pub_coxa_r2.publish(0.0)
-    pub_coxa_r3.publish(0.0)
-
-    pub_femur_l1.publish(0.0)
-    pub_femur_l2.publish(0.0)
-    pub_femur_l3.publish(0.0)
-    pub_femur_r1.publish(0.0)
-    pub_femur_r2.publish(0.0)
-    pub_femur_r3.publish(0.0)
-    rate.sleep()
 
 
 def callback(msg):
@@ -84,8 +67,6 @@ def callback(msg):
     rate.sleep()
         # initial_position()
 #    else :      
-
-    rate.sleep()
 
 sub = rospy.Subscriber('counter', Float64,  callback)
 rospy.spin()
