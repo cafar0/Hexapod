@@ -21,7 +21,7 @@ pub_coxa_r1 = rospy.Publisher('/hexapod/coxa_r1_joint_position_controller/comman
 pub_coxa_r2 = rospy.Publisher('/hexapod/coxa_r2_joint_position_controller/command',  Float64, queue_size=0)
 pub_coxa_r3 = rospy.Publisher('/hexapod/coxa_r3_joint_position_controller/command',  Float64, queue_size=0)
 
-rate = rospy.Rate(2.5)
+rate = rospy.Rate(2.0)
 doubleRate = rospy.Rate(2.5)
 
 kinematic = Bipod((pub_femur_l1,pub_femur_l2,pub_femur_l3),
@@ -34,19 +34,37 @@ def callback(msg):
     if msg.data == 0 :
         print('Publishing... ')
 
-        kinematic.liftMiddleStep()
-        kinematic.middleStepFwd()
-        kinematic.lowerMiddleStep()
+        kinematic.moveRightStepVertical(0.3)
+        kinematic.moveMiddleStepVertical(0.3)
         rate.sleep()
 
-        kinematic.liftLeftStep()
-        kinematic.liftRightStep()
-        kinematic.middleStepNeutral()
-        kinematic.leftStepFwd()
+        kinematic.moveLeftStepHorizontal(-0.4)
+        kinematic.moveRightStepVertical(0.0)
+        kinematic.moveMiddleStepVertical(0.3)
         rate.sleep()
 
-        kinematic.lowerLeftStep()
-        kinematic.leftStepNeutral()
+        kinematic.moveRightStepHorizontal(-0.4)
+        kinematic.moveMiddleStepVertical(0.0)
+        kinematic.moveLeftStepVertical(0.3)
+        rate.sleep()
+
+        kinematic.moveMiddleStepHorizontal(-0.4)
+        
+
+
+        # kinematic.liftMiddleStep()
+        # kinematic.middleStepFwd()
+        # kinematic.lowerMiddleStep()
+        # rate.sleep()
+
+        # kinematic.liftLeftStep()
+        # kinematic.liftRightStep()
+        # kinematic.middleStepNeutral()
+        # kinematic.leftStepFwd()
+        # rate.sleep()
+
+        # kinematic.lowerLeftStep()
+        # kinematic.leftStepNeutral()
 
 
         
