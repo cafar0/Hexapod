@@ -38,17 +38,24 @@ def callback(msg):
         kinematic.moveMiddleStepVertical(0.3)
         rate.sleep()
 
-        kinematic.moveLeftStepHorizontal(-0.4)
-        kinematic.moveRightStepVertical(0.0)
-        kinematic.moveMiddleStepVertical(0.3)
-        rate.sleep()
+        while True :
+            kinematic.moveLeftStepHorizontal(-0.4)
+            kinematic.moveRightStepVertical(0.0)
+            kinematic.moveMiddleStepVertical(0.3)
+            kinematic.moveMiddleStepHorizontal(0.0)
+            rate.sleep()
 
-        kinematic.moveRightStepHorizontal(-0.4)
-        kinematic.moveMiddleStepVertical(0.0)
-        kinematic.moveLeftStepVertical(0.3)
-        rate.sleep()
+            kinematic.moveRightStepHorizontal(-0.4)
+            kinematic.moveMiddleStepVertical(0.0)
+            kinematic.moveLeftStepVertical(0.3)
+            kinematic.moveLeftStepHorizontal(0.0)
+            rate.sleep()
 
-        kinematic.moveMiddleStepHorizontal(-0.4)
+            kinematic.moveMiddleStepHorizontal(-0.4)
+            kinematic.moveLeftStepVertical(0.0)
+            kinematic.moveRightStepVertical(0.3)
+            kinematic.moveRightStepHorizontal(0.0)
+            rate.sleep()
         
 
 
