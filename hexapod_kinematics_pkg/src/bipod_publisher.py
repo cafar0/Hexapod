@@ -35,45 +35,26 @@ def callback(msg):
         print('Publishing... ')
 
         kinematic.moveRightStepVertical(0.3)
-        kinematic.moveMiddleStepVertical(0.3)
         rate.sleep()
 
         while True :
-            kinematic.moveLeftStepHorizontal(-0.4)
-            kinematic.moveRightStepVertical(0.0)
+            kinematic.moveLeftStepVertical(0.0)
             kinematic.moveMiddleStepVertical(0.3)
+            kinematic.moveLeftStepHorizontal(-0.4)
             kinematic.moveMiddleStepHorizontal(0.0)
             rate.sleep()
 
-            kinematic.moveRightStepHorizontal(-0.4)
-            kinematic.moveMiddleStepVertical(0.0)
+            kinematic.moveRightStepVertical(0.0)
             kinematic.moveLeftStepVertical(0.3)
+            kinematic.moveRightStepHorizontal(-0.4)
             kinematic.moveLeftStepHorizontal(0.0)
             rate.sleep()
 
+            kinematic.moveMiddleStepVertical(0.0)
             kinematic.moveMiddleStepHorizontal(-0.4)
-            kinematic.moveLeftStepVertical(0.0)
-            kinematic.moveRightStepVertical(0.3)
             kinematic.moveRightStepHorizontal(0.0)
+            kinematic.moveRightStepVertical(0.3)
             rate.sleep()
-        
-
-
-        # kinematic.liftMiddleStep()
-        # kinematic.middleStepFwd()
-        # kinematic.lowerMiddleStep()
-        # rate.sleep()
-
-        # kinematic.liftLeftStep()
-        # kinematic.liftRightStep()
-        # kinematic.middleStepNeutral()
-        # kinematic.leftStepFwd()
-        # rate.sleep()
-
-        # kinematic.lowerLeftStep()
-        # kinematic.leftStepNeutral()
-
-
         
 
 sub = rospy.Subscriber('counter', Float64,  callback)
