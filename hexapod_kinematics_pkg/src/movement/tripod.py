@@ -44,9 +44,9 @@ class Tripod(Movement) :
         # self.moveLeftLeg(0.0)
 
     def moveLeftLegForward(self) :
-        self.pub_coxa_l1.publish(0.3)
-        self.pub_coxa_r2.publish(-0.3)
-        self.pub_coxa_l3.publish(0.3)
+        self.pub_coxa_l1.publish(0.2)
+        self.pub_coxa_r2.publish(-0.2)
+        self.pub_coxa_l3.publish(0.2)
 
     def moveLeftLegNeutral(self) :
         self.pub_coxa_l1.publish(NEUTRAL)
@@ -59,6 +59,6 @@ class Tripod(Movement) :
         self.pub_coxa_r3.publish(-COXA_FWD)
 
     def moveRightLegNeutral(self) :
-        self.pub_coxa_r1.publish(-0.06)
-        self.pub_coxa_l2.publish(-0.06)
-        self.pub_coxa_r3.publish(-0.06)
+        self.pub_coxa_r1.publish(-0.02)
+        self.pub_coxa_l2.publish(-0.02)
+        self.pub_coxa_r3.publish(-0.02)

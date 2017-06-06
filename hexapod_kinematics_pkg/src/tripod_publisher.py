@@ -21,7 +21,7 @@ pub_coxa_r1 = rospy.Publisher('/hexapod/coxa_r1_joint_position_controller/comman
 pub_coxa_r2 = rospy.Publisher('/hexapod/coxa_r2_joint_position_controller/command',  Float64, queue_size=2)
 pub_coxa_r3 = rospy.Publisher('/hexapod/coxa_r3_joint_position_controller/command',  Float64, queue_size=2)
 
-rate    =   rospy.Rate(1.7)
+rate    =   rospy.Rate(3.2)
 rate_calib = rospy.Rate(1.0)
 count   =   0
 
@@ -72,3 +72,4 @@ sub = rospy.Subscriber('counter', Float64,  callback)
 rospy.spin()
    
 
+# USE different topics for executing movement and for stopping movement 
