@@ -46,6 +46,9 @@
         <xacro:default_inertial mass="1"/>
         <turnGravityOff>false</turnGravityOff>
     </link>
+    <gazebo reference="thorax">
+        <gravity>0</gravity>
+    </gazebo> 
 
     <!-- Pi parameter -->
     <xacro:property name="pi" value="3.1415926535897931" />
@@ -65,6 +68,9 @@
             <xacro:default_inertial mass="1"/>
             <turnGravityOff>false</turnGravityOff>
      </link>
+     <gazebo reference="leg_center_${side}${num}">
+        <gravity>0</gravity>
+    </gazebo>
 
         <!-- First Motor -->
         <link name="coxa_${side}${num}">
@@ -89,6 +95,9 @@
             <xacro:default_inertial mass="1"/>
             <turnGravityOff>false</turnGravityOff>
         </link>
+        <gazebo reference="coxa_${side}${num}">
+           <gravity>0</gravity>
+        </gazebo>
    
         <link name="femur_${side}${num}">
             <visual>
@@ -109,6 +118,9 @@
             <xacro:default_inertial mass="1"/>
             <turnGravityOff>false</turnGravityOff>
         </link>
+        <gazebo reference="femur_${side}${num}">
+           <gravity>0</gravity>
+        </gazebo>
 
         <link name="tibia_${side}${num}">
             <visual>
@@ -129,11 +141,15 @@
             <xacro:default_inertial mass="1"/>
             <turnGravityOff>false</turnGravityOff>
         </link>
+        <gazebo reference="tibia_${side}${num}">
+           <gravity>0</gravity>
+        </gazebo>
 
         <link name="tibia_foot_${side}${num}" >
             <xacro:default_inertial mass="1"/>
             <turnGravityOff>false</turnGravityOff>
         </link>
+        
 
         <!-- Joints description -->
          <joint name="leg_center_joint_${side}${num}" type="fixed">

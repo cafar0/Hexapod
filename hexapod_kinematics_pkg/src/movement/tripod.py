@@ -8,7 +8,7 @@ NEUTRAL = 0.0
 
 
 class Tripod(Movement) :
-
+        
     def moveLeftLeg(self,value) : 
         self.pub_femur_l1.publish(value)
         self.pub_femur_r2.publish(value)
@@ -32,9 +32,9 @@ class Tripod(Movement) :
         # self.moveRightLeg(0.0)
 
     def liftRightLeg(self) :
-        self.pub_femur_r1.publish(FEMUR_UP)
-        self.pub_femur_l2.publish(FEMUR_UP)
-        self.pub_femur_r3.publish(FEMUR_UP)
+        self.pub_femur_r1.publish(0.8)
+        self.pub_femur_l2.publish(0.8)
+        self.pub_femur_r3.publish(0.8)
         # self.moveLeftLeg(-0.2)
 
     def lowerRightLeg(self) :
@@ -44,9 +44,14 @@ class Tripod(Movement) :
         # self.moveLeftLeg(0.0)
 
     def moveLeftLegForward(self) :
-        self.pub_coxa_l1.publish(0.3)
-        self.pub_coxa_r2.publish(-0.3)
-        self.pub_coxa_l3.publish(0.3)
+        self.pub_coxa_l1.publish(COXA_FWD)#0.2
+        self.pub_coxa_r2.publish(-COXA_FWD)
+        self.pub_coxa_l3.publish(COXA_FWD)
+
+    def moveLeftLegBackward(self) :
+        self.pub_coxa_l1.publish(-COXA_FWD)
+        self.pub_coxa_r2.publish(COXA_FWD)
+        self.pub_coxa_l3.publish(-COXA_FWD)
 
     def moveLeftLegNeutral(self) :
         self.pub_coxa_l1.publish(NEUTRAL)
@@ -57,8 +62,13 @@ class Tripod(Movement) :
         self.pub_coxa_r1.publish(-COXA_FWD)
         self.pub_coxa_l2.publish(COXA_FWD)
         self.pub_coxa_r3.publish(-COXA_FWD)
+    
+    def moveRightLegBackward(self) :
+        self.pub_coxa_r1.publish(COXA_FWD)
+        self.pub_coxa_l2.publish(-COXA_FWD)
+        self.pub_coxa_r3.publish(COXA_FWD)
 
     def moveRightLegNeutral(self) :
-        self.pub_coxa_r1.publish(-0.06)
-        self.pub_coxa_l2.publish(-0.06)
-        self.pub_coxa_r3.publish(-0.06)
+        self.pub_coxa_r1.publish(-0.02)
+        self.pub_coxa_l2.publish(-0.02)
+        self.pub_coxa_r3.publish(-0.02)

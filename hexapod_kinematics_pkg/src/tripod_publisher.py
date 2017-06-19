@@ -2,73 +2,76 @@
 import  rospy
 from std_msgs.msg import  Float64
 from movement.tripod import Tripod
+from publisher_singleton import PublisherSingleton
 
+_is_moving = False
 rospy.init_node('tripod_publisher')
 
-pub_femur_l1 = rospy.Publisher('/hexapod/femur_l1_joint_position_controller/command',  Float64, queue_size=2)
-pub_femur_l2 = rospy.Publisher('/hexapod/femur_l2_joint_position_controller/command',  Float64, queue_size=2)
-pub_femur_l3 = rospy.Publisher('/hexapod/femur_l3_joint_position_controller/command',  Float64, queue_size=2)
+singleton = PublisherSingleton()
+internal_pub = rospy.Publisher('/hexapod/tripod_internal/command', Float64, queue_size=2)
+rate    =   rospy.Rate(3.2)
 
-pub_femur_r1 = rospy.Publisher('/hexapod/femur_r1_joint_position_controller/command',  Float64, queue_size=2)
-pub_femur_r2 = rospy.Publisher('/hexapod/femur_r2_joint_position_controller/command',  Float64, queue_size=2)
-pub_femur_r3 = rospy.Publisher('/hexapod/femur_r3_joint_position_controller/command',  Float64, queue_size=2)
-
-pub_coxa_l1 = rospy.Publisher('/hexapod/coxa_l1_joint_position_controller/command',  Float64, queue_size=2)
-pub_coxa_l2 = rospy.Publisher('/hexapod/coxa_l2_joint_position_controller/command',  Float64, queue_size=2)
-pub_coxa_l3 = rospy.Publisher('/hexapod/coxa_l3_joint_position_controller/command',  Float64, queue_size=2)
-
-pub_coxa_r1 = rospy.Publisher('/hexapod/coxa_r1_joint_position_controller/command',  Float64, queue_size=2)
-pub_coxa_r2 = rospy.Publisher('/hexapod/coxa_r2_joint_position_controller/command',  Float64, queue_size=2)
-pub_coxa_r3 = rospy.Publisher('/hexapod/coxa_r3_joint_position_controller/command',  Float64, queue_size=2)
-
-rate    =   rospy.Rate(1.7)
-rate_calib = rospy.Rate(1.0)
-count   =   0
-
-kinematic = Tripod((pub_femur_l1,pub_femur_l2,pub_femur_l3),
-                   (pub_femur_r1,pub_femur_r2,pub_femur_r3),
-                   (pub_coxa_l1, pub_coxa_l2, pub_coxa_l3),
-                   (pub_coxa_r1, pub_coxa_r2, pub_coxa_r3))
+kinematic = Tripod(singleton.leftFemurPublishers(),
+                     singleton.rightFemurPublishers(),
+                     singleton.leftCoxaPublishers(),
+                     singleton.rightCoxaPublishers())
     
-
-
 def callback(msg):
+    global _is_moving
+    
+    if msg.data == 0:
+        _is_moving = False
+        internal_pub.publish(0)
+    elif _is_moving == False:
+        _is_moving = True
+        internal_pub.publish(msg.data)
+        
+
+def internal_callback(msg):
+    global _is_moving
+    _forward = True
     print('publishing...' + str(msg.data))
 
-    if msg.data == 0 :
-        loop_condition = True
-        
-        
-        kinematic.liftLeftLeg()
+    if msg.data == 1 :
+        _is_moving = True
+        _forward = True
+    elif msg.data == 2:
+        _is_moving = True
+        _forward = False
+    
+    kinematic.liftLeftLeg()
+    rate.sleep()
+    while True :
+        if _forward == True:
+            kinematic.moveLeftLegForward()
+        else:
+            kinematic.moveLeftLegBackward()
+        rate.sleep()
+    
+        kinematic.lowerLeftLeg()
+        if _is_moving == False:
+            break
         rate.sleep()
 
-        while True :
-            kinematic.moveLeftLegForward()
-            rate.sleep()
+        kinematic.liftRightLeg()
+        kinematic.moveLeftLegNeutral()
         
-            kinematic.lowerLeftLeg()
-            rate.sleep()
-
-            kinematic.liftRightLeg()
-            # rate.sleep()
-            kinematic.moveLeftLegNeutral()
-            # rate.sleep()
-                
+        if _forward == True:            
             kinematic.moveRightLegForward()
-            rate.sleep()
+        else:
+            kinematic.moveRightLegBackward()
+        rate.sleep()
 
-            kinematic.lowerRightLeg()
-            rate.sleep()
-            
-            kinematic.liftLeftLeg()
-            kinematic.moveRightLegNeutral()
+        kinematic.lowerRightLeg()
+        if _is_moving == False:
+            break
+        rate.sleep()
+        
+        kinematic.liftLeftLeg()
+        kinematic.moveRightLegNeutral()
+    kinematic.initial_position()
 
-
-    rate.sleep()
-        # initial_position()
-#    else :      
-
-sub = rospy.Subscriber('counter', Float64,  callback)
+internal_sub = rospy.Subscriber('/hexapod/tripod_internal/command', Float64,  internal_callback)
+sub = rospy.Subscriber('counter', Float64, callback)
 rospy.spin()
    
-

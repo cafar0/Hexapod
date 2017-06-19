@@ -61,7 +61,7 @@ class Movement():
         self.pub_coxa_r3 = coxa_right[2]
 
     
-    def initial_position():
+    def initial_position(self):
         self.pub_femur_l1.publish(0.0)
         self.pub_femur_l2.publish(0.0)
         self.pub_femur_l3.publish(0.0)
